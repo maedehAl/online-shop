@@ -1,6 +1,7 @@
 package com.sadad.co.ir.api.shopcenter.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +15,7 @@ public class CustomerEntity {
     private int id;
 
     @Column(name = "FIRST_NAME")
+    @NotBlank(message = "please enter your firstname")
     private String name;
 
     @Column(name = "LAST_NAME")
@@ -21,4 +23,11 @@ public class CustomerEntity {
 
     @Column(name = "ADDRESS")
     private String address;
+
+    @Column(name = "PHONE-NUMBER")
+    private int phoneNumber;
+
+    @OneToMany
+    @Column(name = "ORDER_ID")
+    private int orderId;
 }
