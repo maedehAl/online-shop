@@ -10,6 +10,7 @@ import lombok.Setter;
 @Table(name = "PRODUCT")
 public class ProductEntity {
 
+    @OneToMany(mappedBy = "")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
