@@ -10,9 +10,10 @@ import lombok.Setter;
 @Table(name = "PRODUCT")
 public class ProductEntity {
 
-    @OneToMany(mappedBy = "")
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id") //optional
     private int id;
 
     @Column(name = "PRODUCT_NAME" , length = 100 , nullable = false)
@@ -24,8 +25,6 @@ public class ProductEntity {
     @Column(name = "PRICE" ,nullable = false)
     private double price;
 
-//    @OneToMany(mappedBy = )
     @Column(name = "PRODUCT_DESCRIPTION" )
     private String description;
-
 }

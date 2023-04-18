@@ -11,10 +11,10 @@ import lombok.Setter;
 @Table(name = "CUSTOMER")
 public class CustomerEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "FIRST_NAME")
+    @Column(name = "FIRST_NAME",length = 100)
     @NotBlank(message = "please enter your firstname")
     private String name;
 
@@ -27,7 +27,10 @@ public class CustomerEntity {
     @Column(name = "PHONE-NUMBER")
     private int phoneNumber;
 
-    @OneToMany
-    @Column(name = "ORDER_ID")
-    private int orderId;
+    @Column(name = "EMAIL")
+    private String email;
+
+//    @OneToMany
+//    @Column(name = "ORDER_ID")
+//    private int orderId;
 }
