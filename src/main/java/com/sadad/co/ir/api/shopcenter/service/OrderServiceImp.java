@@ -1,14 +1,17 @@
 package com.sadad.co.ir.api.shopcenter.service;
 
-import com.sadad.co.ir.api.shopcenter.dto.PayDtoResp;
-import com.sadad.co.ir.api.shopcenter.dto.PayReqDto;
+import com.sadad.co.ir.api.shopcenter.dto.*;
+import com.sadad.co.ir.api.shopcenter.entity.OrderDetailEntity;
 import com.sadad.co.ir.api.shopcenter.entity.OrderEntity;
 import com.sadad.co.ir.api.shopcenter.entity.OrderStatus;
+import com.sadad.co.ir.api.shopcenter.repository.OrderDetailRepository;
 import com.sadad.co.ir.api.shopcenter.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +22,9 @@ public class OrderServiceImp implements OrderService {
     private OrderRepository orderRepository;
 
     @Autowired
+    private OrderDetailRepository orderDetailRepository;
+
+    @Autowired
     @Qualifier("PayWithCash")
     private PayService payServiceWithCash;
 
@@ -26,6 +32,37 @@ public class OrderServiceImp implements OrderService {
     @Qualifier("PayWithIPG")
     private PayService payServiceWithIPG;
 
+
+    @Override
+    public OrderDto getOrder(int id) {
+        Optional<OrderEntity> order = orderRepository.findById(id);
+        if (order.isEmpty()) {
+            return null;
+        }
+
+        OrderDto responseDto = new OrderDto();
+        responseDto.setId(order.get().getId());
+        responseDto.setTotalAmount(order.get().getTotalAmount());
+        responseDto.setOrderDetails(new ArrayList<>());
+        responseDto.setCustomer(new CustomerDto());
+
+        responseDto.getCustomer().setName(order.get().getCustomer().getName());
+
+        List<OrderDetailEntity> orderDetails = orderDetailRepository.findAllByOrder_IdIs(id);
+
+        for (OrderDetailEntity entity : orderDetails) {
+            OrderDetailDto detailDto = new OrderDetailDto();
+            detailDto.setCount(1);
+
+            ProductDto productDto = new ProductDto();
+            productDto.setName(entity.getProduct().getName());
+            detailDto.setProduct(productDto);
+
+            responseDto.getOrderDetails().add(detailDto);
+        }
+
+        return responseDto;
+    }
 
     public PayDtoResp settlement(PayReqDto reqDto) {
         //get order

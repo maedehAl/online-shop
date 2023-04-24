@@ -28,33 +28,7 @@ public class OrderController {
 
     @GetMapping("/{id}")
     public OrderDto getOrder(@PathVariable("id") int id) {
-        Optional<OrderEntity> order = orderRepository.findById(id);
-        if (order.isEmpty()) {
-            return null;
-        }
-
-        OrderDto responseDto = new OrderDto();
-        responseDto.setId(order.get().getId());
-        responseDto.setTotalAmount(order.get().getTotalAmount());
-        responseDto.setOrderDetails(new ArrayList<>());
-        responseDto.setCustomer(new CustomerDto());
-
-        responseDto.getCustomer().setName(order.get().getCustomer().getName());
-
-        List<OrderDetailEntity> orderDetails = orderDetailRepository.findAllByOrder_IdIs(id);
-
-        for (OrderDetailEntity entity : orderDetails) {
-            OrderDetailDto detailDto = new OrderDetailDto();
-            detailDto.setCount(1);
-
-            ProductDto productDto = new ProductDto();
-            productDto.setName(entity.getProduct().getName());
-            detailDto.setProduct(productDto);
-
-            responseDto.getOrderDetails().add(detailDto);
-        }
-
-        return responseDto;
+        return orderService.getOrder(id);
     }
 
 
