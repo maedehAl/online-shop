@@ -18,9 +18,6 @@ public class OrderDto implements Serializable {
 
     private List<OrderDetailDto> orderDetails;
 
-    @Column(name = "TOTAL_AMOUNT")
     private long totalAmount;
-
-
 
 }

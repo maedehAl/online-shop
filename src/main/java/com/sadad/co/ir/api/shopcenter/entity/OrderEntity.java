@@ -21,8 +21,11 @@ public class OrderEntity {
 
     @Column(name = "TOTAL_AMOUNT")
     private long totalAmount;
+//    محاسبه بشه
 
+    @Column(name = "ORDER_STATUS")
     private OrderStatus orderStatus;
+
 
 //    @OneToMany
 //    private List<OrderDetailEntity> orderDetails;

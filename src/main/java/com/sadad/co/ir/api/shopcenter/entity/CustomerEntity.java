@@ -24,7 +24,7 @@ public class CustomerEntity {
     @Column(name = "ADDRESS")
     private String address;
 
-    @Column(name = "PHONE-NUMBER")
+    @Column(name = "PHONE_NUMBER")
     private int phoneNumber;
 
     @Column(name = "EMAIL")

@@ -27,4 +27,10 @@ public class ProductEntity {
 
     @Column(name = "PRODUCT_DESCRIPTION" )
     private String description;
+
+    @Column(name = "IS_ACTIVE")
+    private Boolean isActive;
+
+    @Column(name = "CATEGORY")
+    private Integer category;
 }

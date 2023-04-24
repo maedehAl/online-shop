@@ -3,6 +3,7 @@ package com.sadad.co.ir.api.shopcenter.controller;
 import com.sadad.co.ir.api.shopcenter.dto.*;
 import com.sadad.co.ir.api.shopcenter.entity.OrderDetailEntity;
 import com.sadad.co.ir.api.shopcenter.entity.OrderEntity;
+import com.sadad.co.ir.api.shopcenter.entity.ProductEntity;
 import com.sadad.co.ir.api.shopcenter.repository.CustomerRepository;
 import com.sadad.co.ir.api.shopcenter.repository.OrderDetailRepository;
 import com.sadad.co.ir.api.shopcenter.repository.OrderRepository;
@@ -29,6 +30,12 @@ public class OrderController {
     @GetMapping("/{id}")
     public OrderDto getOrder(@PathVariable("id") int id) {
         return orderService.getOrder(id);
+    }
+
+    @PostMapping("")
+        public OrderEntity insertOrder(@RequestBody CreateOrderDto orderDto){
+
+        return orderService.insertOrder(orderDto);
     }
 
 
