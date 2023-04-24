@@ -18,6 +18,7 @@ public class OrderDetailEntity {
     @JoinColumn(name = "product_fk",referencedColumnName = "id")
     private ProductEntity product;
 
+    @Column(name = "COUNT")
     private Integer count;
 
     @ManyToOne

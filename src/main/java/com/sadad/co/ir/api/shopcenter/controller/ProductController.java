@@ -5,6 +5,7 @@ import com.sadad.co.ir.api.shopcenter.entity.ProductEntity;
 import com.sadad.co.ir.api.shopcenter.repository.ProductRepository;
 import com.sadad.co.ir.api.shopcenter.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class ProductController {
     private ProductRepository productRepository;
     private final ProductService productService;
 
-    public ProductController(ProductService productService) {
+    public ProductController(@Qualifier("product_service") ProductService productService) {
         this.productService = productService;
     }
 
@@ -42,35 +43,18 @@ public class ProductController {
     @PostMapping("")
     public ProductEntity create(@RequestBody ProductDto productDto) {
 
-        ProductEntity product = new ProductEntity();
-        product.setCount(productDto.getCount());
-        product.setDescription(productDto.getDescription());
-        product.setName(productDto.getName());
-        product.setPrice(productDto.getPrice());
-
-        return productRepository.save(product);
+        return productService.create(productDto);
     }
 
     @PutMapping("{id}")
     public ProductEntity update(@PathVariable("id") Integer id, @RequestBody ProductDto productDto) {
 
-        Optional<ProductEntity> optionalProduct = productRepository.findById(id);
-
-        if (optionalProduct.isEmpty()) {
-            throw new RuntimeException();
-        }
-
-        ProductEntity product = optionalProduct.get();
-        product.setCount(productDto.getCount());
-        product.setDescription(productDto.getDescription());
-        product.setName(productDto.getName());
-        product.setPrice(productDto.getPrice());
-
-        return productRepository.save(product);
+       return productService.update(id,productDto);
     }
 
     @DeleteMapping("")
     public void delete(@PathVariable("id") Integer id) {
-        productRepository.deleteById(id);
+
+        productService.delete(id);
     }
 }

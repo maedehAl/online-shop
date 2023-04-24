@@ -1,20 +1,17 @@
 package com.sadad.co.ir.api.shopcenter.controller;
 
-import com.sadad.co.ir.api.shopcenter.dto.CustomerDto;
-import com.sadad.co.ir.api.shopcenter.dto.OrderDetailDto;
-import com.sadad.co.ir.api.shopcenter.dto.OrderDto;
-import com.sadad.co.ir.api.shopcenter.dto.ProductDto;
+import com.sadad.co.ir.api.shopcenter.dto.*;
 import com.sadad.co.ir.api.shopcenter.entity.OrderDetailEntity;
 import com.sadad.co.ir.api.shopcenter.entity.OrderEntity;
 import com.sadad.co.ir.api.shopcenter.repository.CustomerRepository;
 import com.sadad.co.ir.api.shopcenter.repository.OrderDetailRepository;
 import com.sadad.co.ir.api.shopcenter.repository.OrderRepository;
 import com.sadad.co.ir.api.shopcenter.repository.ProductRepository;
+import com.sadad.co.ir.api.shopcenter.service.OrderService;
+import com.sadad.co.ir.api.shopcenter.service.OrderServiceImp;
+import com.sadad.co.ir.api.shopcenter.service.PayService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +24,7 @@ public class OrderController {
 
     private final OrderRepository orderRepository;
     private final OrderDetailRepository orderDetailRepository;
+    private final OrderService orderService;
 
     @GetMapping("/{id}")
     public OrderDto getOrder(@PathVariable("id") int id) {
@@ -57,6 +55,14 @@ public class OrderController {
         }
 
         return responseDto;
+    }
+
+
+    @PostMapping("/pay")
+    public PayDtoResp pay(@RequestBody PayReqDto reqDto) {
+
+        return orderService.settlement(reqDto);
+
     }
 
 }
