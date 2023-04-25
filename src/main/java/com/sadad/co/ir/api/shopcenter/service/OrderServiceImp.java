@@ -126,16 +126,24 @@ public class OrderServiceImp implements OrderService {
 
     @Override
     public OrderEntity updateOrder(int id, CreateOrderDto orderDto) {
-//        Optional<OrderEntity> optOrder = orderRepository.findById(id);
-//        OrderEntity orderEntity = optOrder.get();
-//
-//        Optional<CustomerEntity> customerEntity = customerRepository.findById(orderDto.getCustomerId());
-//        orderEntity.setCustomer(customerEntity.get());
-//        orderEntity=orderRepository.save(orderEntity);
-//        productRepository.findById()
-//        System.out.println(orderEntity);
-//
-//        return null;
+        Optional<OrderEntity> optOrder = orderRepository.findById(id);
+        OrderEntity orderEntity = optOrder.get();
+
+        Optional<CustomerEntity> optCustomerEntity = customerRepository.findById(orderDto.getCustomerId());
+        orderEntity.setCustomer(optCustomerEntity.get());
+        orderEntity=orderRepository.save(orderEntity);
+        Optional<OrderDetailEntity> orderDetails = orderDetailRepository.findById(orderEntity.getId());
+        OrderDetailEntity orderDetailsEntity =orderDetails.get();
+        for (CreateOrderDetailDto detailDto:
+                orderDto.getOrderDetails()) {
+            orderDetailsEntity.setCount(detailDto.getCount());
+            Optional<ProductEntity> productEntity = productRepository.findById(detailDto.getProductId());
+            orderDetailsEntity.setProduct(productEntity.get());
+            orderDetailRepository.save(orderDetailsEntity);
+
+
+        }
+        return orderRepository.save(orderEntity);
     }
 
     public PayDtoResp settlement(PayReqDto reqDto) {
