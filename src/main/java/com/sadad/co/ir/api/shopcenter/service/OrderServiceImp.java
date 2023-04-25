@@ -124,6 +124,20 @@ public class OrderServiceImp implements OrderService {
         return orderRepository.save(orderEntity);
     }
 
+    @Override
+    public OrderEntity updateOrder(int id, CreateOrderDto orderDto) {
+//        Optional<OrderEntity> optOrder = orderRepository.findById(id);
+//        OrderEntity orderEntity = optOrder.get();
+//
+//        Optional<CustomerEntity> customerEntity = customerRepository.findById(orderDto.getCustomerId());
+//        orderEntity.setCustomer(customerEntity.get());
+//        orderEntity=orderRepository.save(orderEntity);
+//        productRepository.findById()
+//        System.out.println(orderEntity);
+//
+//        return null;
+    }
+
     public PayDtoResp settlement(PayReqDto reqDto) {
         //get order
         Optional<OrderEntity> optOrderEntity = orderRepository.findById(reqDto.getOrderId());
@@ -164,4 +178,6 @@ public class OrderServiceImp implements OrderService {
         orderRepository.save(orderEntity);
         return pay;
     }
+
+
 }

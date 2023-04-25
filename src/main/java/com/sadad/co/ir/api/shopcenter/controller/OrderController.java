@@ -11,6 +11,7 @@ import com.sadad.co.ir.api.shopcenter.repository.ProductRepository;
 import com.sadad.co.ir.api.shopcenter.service.OrderService;
 import com.sadad.co.ir.api.shopcenter.service.OrderServiceImp;
 import com.sadad.co.ir.api.shopcenter.service.PayService;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +39,10 @@ public class OrderController {
         return orderService.insertOrder(orderDto);
     }
 
+    @PutMapping("/{id}")
+    public OrderEntity updateOrder(@PathVariable ("id")int id ,@RequestBody CreateOrderDto orderDto){
+        return  orderService.updateOrder(id,orderDto);
+    }
 
     @PostMapping("/pay")
     public PayDtoResp pay(@RequestBody PayReqDto reqDto) {

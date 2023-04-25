@@ -11,4 +11,6 @@ public interface OrderService  {
     OrderDto getOrder(int id);
     OrderEntity insertOrder (CreateOrderDto orderEntity);
     PayDtoResp settlement(PayReqDto reqDto);
+
+    OrderEntity updateOrder(int id, CreateOrderDto orderDto);
 }
