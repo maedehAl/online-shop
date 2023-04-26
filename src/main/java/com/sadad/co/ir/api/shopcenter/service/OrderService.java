@@ -10,7 +10,11 @@ public interface OrderService  {
 
     OrderDto getOrder(int id);
     OrderEntity insertOrder (CreateOrderDto orderEntity);
+
+    void deleteOrder(int id);
+
     PayDtoResp settlement(PayReqDto reqDto);
 
     OrderEntity updateOrder(int id, CreateOrderDto orderDto);
+
 }

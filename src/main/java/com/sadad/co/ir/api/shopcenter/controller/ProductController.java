@@ -52,8 +52,8 @@ public class ProductController {
        return productService.update(id,productDto);
     }
 
-    @DeleteMapping("")
-    public void delete(@PathVariable("id") Integer id) {
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable ("id") Integer id) {
 
         productService.delete(id);
     }

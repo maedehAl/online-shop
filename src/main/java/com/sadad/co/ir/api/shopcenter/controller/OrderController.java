@@ -44,6 +44,10 @@ public class OrderController {
         return  orderService.updateOrder(id,orderDto);
     }
 
+    @DeleteMapping("")
+    public void deleteOrder(@PathVariable ("id") int id) {
+         orderService.deleteOrder(id);
+    }
     @PostMapping("/pay")
     public PayDtoResp pay(@RequestBody PayReqDto reqDto) {
 

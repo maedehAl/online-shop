@@ -123,7 +123,6 @@ public class OrderServiceImp implements OrderService {
         orderEntity.setTotalAmount(totalAmount);
         return orderRepository.save(orderEntity);
     }
-
     @Override
     public OrderEntity updateOrder(int id, CreateOrderDto orderDto) {
         Optional<OrderEntity> optOrder = orderRepository.findById(id);
@@ -145,6 +144,9 @@ public class OrderServiceImp implements OrderService {
         }
         return orderRepository.save(orderEntity);
     }
+
+    @Override
+    public void deleteOrder(int id) {orderRepository.deleteById(id); }
 
     public PayDtoResp settlement(PayReqDto reqDto) {
         //get order
