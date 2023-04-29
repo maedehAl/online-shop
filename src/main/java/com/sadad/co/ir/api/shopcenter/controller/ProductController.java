@@ -3,8 +3,9 @@ package com.sadad.co.ir.api.shopcenter.controller;
 import com.sadad.co.ir.api.shopcenter.dto.ProductDto;
 import com.sadad.co.ir.api.shopcenter.entity.ProductEntity;
 import com.sadad.co.ir.api.shopcenter.repository.ProductRepository;
-import lombok.RequiredArgsConstructor;
+import com.sadad.co.ir.api.shopcenter.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -12,10 +13,17 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController()
-@RequiredArgsConstructor //autowired
+//@RequiredArgsConstructor //autowired
 @RequestMapping("/products")
 public class ProductController {
+
+    @Autowired
     private ProductRepository productRepository;
+    private final ProductService productService;
+
+    public ProductController(@Qualifier("product_service") ProductService productService) {
+        this.productService = productService;
+    }
 
     @GetMapping("/hello")
     public String hello() {
@@ -29,47 +37,24 @@ public class ProductController {
 
     @GetMapping("")
     public List<ProductEntity> getAll(@RequestParam(value = "id", required = false) Integer id) {
-        if (id == null) {
-            return productRepository.findAll();
-        } else {
-            List<Integer> integers = new ArrayList<>();
-            integers.add(id);
-            return productRepository.findAllById(integers);
-        }
+        return productService.getAll(id);
     }
 
     @PostMapping("")
     public ProductEntity create(@RequestBody ProductDto productDto) {
 
-        ProductEntity product = new ProductEntity();
-        product.setCount(productDto.getCount());
-        product.setDescription(productDto.getDescription());
-        product.setName(productDto.getName());
-        product.setPrice(productDto.getPrice());
-
-        return productRepository.save(product);
+        return productService.create(productDto);
     }
 
     @PutMapping("{id}")
     public ProductEntity update(@PathVariable("id") Integer id, @RequestBody ProductDto productDto) {
 
-        Optional<ProductEntity> optionalProduct = productRepository.findById(id);
-
-        if (optionalProduct.isEmpty()) {
-            throw new RuntimeException();
-        }
-
-        ProductEntity product = optionalProduct.get();
-        product.setCount(productDto.getCount());
-        product.setDescription(productDto.getDescription());
-        product.setName(productDto.getName());
-        product.setPrice(productDto.getPrice());
-
-        return productRepository.save(product);
+       return productService.update(id,productDto);
     }
 
-    @DeleteMapping("")
-    public void delete(@PathVariable("id") Integer id) {
-        productRepository.deleteById(id);
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable ("id") Integer id) {
+
+        productService.delete(id);
     }
 }
