@@ -18,10 +18,14 @@ import java.util.Optional;
 
 @Service
 public class OrderServiceImp implements OrderService {
-
+//    public OrderServiceImp(OrderRepository orderRepository, CustomerRepository customerRepository, PayService payServiceWithCash) {
+//        this.orderRepository = orderRepository;
+//        this.customerRepository = customerRepository;
+//        this.payServiceWithCash = payServiceWithCash;
+//    }
 
     @Autowired
-    private OrderRepository orderRepository;
+     private OrderRepository orderRepository;
 
     @Autowired
     private OrderDetailRepository orderDetailRepository;
@@ -39,6 +43,8 @@ public class OrderServiceImp implements OrderService {
     @Autowired
     @Qualifier("PayWithIPG")
     private PayService payServiceWithIPG;
+
+
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
 
@@ -68,7 +74,7 @@ public class OrderServiceImp implements OrderService {
         responseDto.getCustomer().setAddress(customerEntity.getAddress());
         responseDto.getCustomer().setPhoneNumber(customerEntity.getPhoneNumber());
 
-        responseDto.setOrderDetails(new ArrayList<>());
+        responseDto.setOrderDetails(new ArrayList<>());//
 
 
         List<OrderDetailEntity> orderDetails = orderDetailRepository.findAllByOrder_IdIs(id);
@@ -77,7 +83,7 @@ public class OrderServiceImp implements OrderService {
             OrderDetailDto detailDto = new OrderDetailDto();
             detailDto.setCount(entity.getCount());
 
-            Optional<ProductEntity> product = productRepository.findById(entity.getProduct().getId());
+            Optional<ProductEntity> product = productRepository.findById(entity.getProduct().getId());//
 
             ProductDto productDto = new ProductDto();
             productDto.setName(entity.getProduct().getName());
@@ -139,14 +145,15 @@ public class OrderServiceImp implements OrderService {
             Optional<ProductEntity> productEntity = productRepository.findById(detailDto.getProductId());
             orderDetailsEntity.setProduct(productEntity.get());
             orderDetailRepository.save(orderDetailsEntity);
-
-
         }
         return orderRepository.save(orderEntity);
     }
 
     @Override
-    public void deleteOrder(int id) {orderRepository.deleteById(id); }
+    public void deleteOrder(int id) {
+        orderRepository.deleteById(id);
+//        return "delete";
+    }
 
     public PayDtoResp settlement(PayReqDto reqDto) {
         //get order

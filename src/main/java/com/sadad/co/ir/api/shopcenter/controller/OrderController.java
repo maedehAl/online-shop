@@ -45,7 +45,7 @@ public class OrderController {
     }
 
     @DeleteMapping("")
-    public void deleteOrder(@PathVariable ("id") int id) {
+    public void deleteOrder(@RequestParam int id){
          orderService.deleteOrder(id);
     }
     @PostMapping("/pay")
