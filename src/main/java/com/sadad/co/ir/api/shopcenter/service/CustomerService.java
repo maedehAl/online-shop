@@ -10,4 +10,6 @@ public interface CustomerService {
     List<CustomerEntity> getAllCustomer();
 
     CustomerEntity insertCustomer(CustomerDto customerDto);
+
+    void deleteCustomer(Integer id);
 }

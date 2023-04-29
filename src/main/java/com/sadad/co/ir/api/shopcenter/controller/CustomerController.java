@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/customers/")
+@RequestMapping("/customers")
 @RequiredArgsConstructor
 public class CustomerController {
     private final CustomerService customerService;
@@ -30,6 +30,11 @@ public class CustomerController {
     @PostMapping("")
     public CustomerEntity insertCustomer(@RequestBody CustomerDto customerDto){
         return customerService.insertCustomer(customerDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteCustomer(@PathVariable("id") Integer id){
+        customerService.deleteCustomer(id);
     }
 
 }

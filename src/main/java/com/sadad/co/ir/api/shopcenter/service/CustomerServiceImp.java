@@ -43,4 +43,9 @@ public class CustomerServiceImp implements CustomerService
         customerEntity.setPhoneNumber(customerDto.getPhoneNumber());
         return customerRepository.save(customerEntity);
     }
+
+    @Override
+    public void deleteCustomer(Integer id) {
+        customerRepository.deleteById(id);
+    }
 }
