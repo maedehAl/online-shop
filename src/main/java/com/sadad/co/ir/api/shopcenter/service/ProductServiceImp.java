@@ -34,7 +34,11 @@ public class ProductServiceImp implements ProductService{
 
     @Override
     public ProductEntity getOne(Integer id) {
-        return null;
+        Optional <ProductEntity> optProduct = productRepository.findById(id);
+        if (optProduct.isEmpty()) {
+            throw new RuntimeException("NotFound Order");
+        }
+        return optProduct.get();
     }
 
     @Override
