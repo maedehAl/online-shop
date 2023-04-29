@@ -25,4 +25,11 @@ public class CustomerController {
     public CustomerEntity getCustomer(@PathVariable("id") Integer id){
         return customerService.getCustomer(id);
     }
+    @GetMapping("")
+    public List<CustomerEntity> getAllCustomer (){
+
+        return customerService.getAllCustomer();
+    }
+
 }
+
