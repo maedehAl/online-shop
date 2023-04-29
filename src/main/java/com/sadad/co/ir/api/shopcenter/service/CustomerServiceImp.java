@@ -45,6 +45,20 @@ public class CustomerServiceImp implements CustomerService
     }
 
     @Override
+    public CustomerEntity updateCustomer(Integer id, CustomerDto customerDto) {
+        Optional<CustomerEntity> optCustomer = customerRepository.findById(id);
+        CustomerEntity customerEntity=optCustomer.get();
+        customerEntity.setName(customerDto.getName());
+        customerEntity.setLastName(customerDto.getLastName());
+        customerEntity.setAddress(customerDto.getAddress());
+        customerEntity.setEmail(customerDto.getEmail());
+        customerEntity.setPhoneNumber(customerDto.getPhoneNumber());
+
+    return customerRepository.save(customerEntity);
+    }
+
+
+    @Override
     public void deleteCustomer(Integer id) {
         customerRepository.deleteById(id);
     }

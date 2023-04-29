@@ -11,5 +11,6 @@ public interface CustomerService {
 
     CustomerEntity insertCustomer(CustomerDto customerDto);
 
+    CustomerEntity updateCustomer(Integer id, CustomerDto customerDto);
     void deleteCustomer(Integer id);
 }

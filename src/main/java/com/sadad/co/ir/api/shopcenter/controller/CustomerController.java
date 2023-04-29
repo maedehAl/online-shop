@@ -32,6 +32,10 @@ public class CustomerController {
         return customerService.insertCustomer(customerDto);
     }
 
+    @PutMapping("/{id}")
+    public CustomerEntity updateCustomer (@PathVariable("id")Integer id, @RequestBody CustomerDto customerDto){
+        return customerService.updateCustomer(id,customerDto);
+    }
     @DeleteMapping("/{id}")
     public void deleteCustomer(@PathVariable("id") Integer id){
         customerService.deleteCustomer(id);
