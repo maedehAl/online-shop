@@ -3,7 +3,8 @@ package com.sadad.co.ir.api.shopcenter.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter @Getter
+@Setter
+@Getter
 public class PayReqDto {
 
     private int orderId;

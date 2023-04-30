@@ -18,13 +18,6 @@ import java.util.Optional;
 
 @Service
 public class OrderServiceImp implements OrderService {
-    public OrderServiceImp(OrderRepository orderRepository, OrderDetailRepository orderDetailRepository, CustomerRepository customerRepository, ProductRepository productRepository) {
-        this.orderRepository = orderRepository;
-        this.orderDetailRepository = orderDetailRepository;
-        this.customerRepository = customerRepository;
-        this.productRepository = productRepository;
-    }
-
     private final OrderRepository orderRepository;
     private final OrderDetailRepository orderDetailRepository;
     private final CustomerRepository customerRepository;
@@ -32,19 +25,23 @@ public class OrderServiceImp implements OrderService {
     @Autowired
     @Qualifier("PayWithCash")
     private PayService payServiceWithCash;
-
     @Autowired
     @Qualifier("PayWithIPG")
-    private  PayService payServiceWithIPG;
+    private PayService payServiceWithIPG;
 
-
+    public OrderServiceImp(OrderRepository orderRepository, OrderDetailRepository orderDetailRepository, CustomerRepository customerRepository, ProductRepository productRepository) {
+        this.orderRepository = orderRepository;
+        this.orderDetailRepository = orderDetailRepository;
+        this.customerRepository = customerRepository;
+        this.productRepository = productRepository;
+    }
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
 
     @Override
     public OrderDto getOrder(int id) {
 
-        OrderEntity orderEntity = orderRepository.findById(id).orElseThrow(()->new RuntimeException("Order Not Found"));
+        OrderEntity orderEntity = orderRepository.findById(id).orElseThrow(() -> new RuntimeException("Order Not Found"));
 
         Optional<CustomerEntity> OptCustomer = customerRepository.findById(orderEntity.getCustomer().getId());
         CustomerEntity customerEntity = OptCustomer.get();
@@ -117,16 +114,17 @@ public class OrderServiceImp implements OrderService {
         orderEntity.setTotalAmount(totalAmount);
         return orderRepository.save(orderEntity);
     }
+
     @Override
     public OrderEntity updateOrder(int id, CreateOrderDto orderDto) {
-        OrderEntity orderEntity = orderRepository.findById(id).orElseThrow(()->new RuntimeException("Order Not Found"));
+        OrderEntity orderEntity = orderRepository.findById(id).orElseThrow(() -> new RuntimeException("Order Not Found"));
 
         Optional<CustomerEntity> optCustomerEntity = customerRepository.findById(orderDto.getCustomerId());
         orderEntity.setCustomer(optCustomerEntity.get());
-        orderEntity=orderRepository.save(orderEntity);
+        orderEntity = orderRepository.save(orderEntity);
         Optional<OrderDetailEntity> orderDetails = orderDetailRepository.findById(orderEntity.getId());
-        OrderDetailEntity orderDetailsEntity =orderDetails.get();
-        for (CreateOrderDetailDto detailDto:
+        OrderDetailEntity orderDetailsEntity = orderDetails.get();
+        for (CreateOrderDetailDto detailDto :
                 orderDto.getOrderDetails()) {
             orderDetailsEntity.setCount(detailDto.getCount());
             Optional<ProductEntity> productEntity = productRepository.findById(detailDto.getProductId());

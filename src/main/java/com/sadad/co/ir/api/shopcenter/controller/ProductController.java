@@ -8,18 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController()
 //@RequiredArgsConstructor //autowired
 @RequestMapping("/products")
 public class ProductController {
 
+    private final ProductService productService;
     @Autowired
     private ProductRepository productRepository;
-    private final ProductService productService;
 
     public ProductController(@Qualifier("product_service") ProductService productService) {
         this.productService = productService;
@@ -49,11 +47,11 @@ public class ProductController {
     @PutMapping("{id}")
     public ProductEntity update(@PathVariable("id") Integer id, @RequestBody ProductDto productDto) {
 
-       return productService.update(id,productDto);
+        return productService.update(id, productDto);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable ("id") Integer id) {
+    public void delete(@PathVariable("id") Integer id) {
 
         productService.delete(id);
     }

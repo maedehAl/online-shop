@@ -1,7 +1,5 @@
 package com.sadad.co.ir.api.shopcenter.dto;
 
-import com.sadad.co.ir.api.shopcenter.entity.CustomerEntity;
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 

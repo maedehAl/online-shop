@@ -1,23 +1,15 @@
 package com.sadad.co.ir.api.shopcenter.controller;
 
-import com.sadad.co.ir.api.shopcenter.dto.*;
-import com.sadad.co.ir.api.shopcenter.entity.OrderDetailEntity;
+import com.sadad.co.ir.api.shopcenter.dto.CreateOrderDto;
+import com.sadad.co.ir.api.shopcenter.dto.OrderDto;
+import com.sadad.co.ir.api.shopcenter.dto.PayDtoResp;
+import com.sadad.co.ir.api.shopcenter.dto.PayReqDto;
 import com.sadad.co.ir.api.shopcenter.entity.OrderEntity;
-import com.sadad.co.ir.api.shopcenter.entity.ProductEntity;
-import com.sadad.co.ir.api.shopcenter.repository.CustomerRepository;
 import com.sadad.co.ir.api.shopcenter.repository.OrderDetailRepository;
 import com.sadad.co.ir.api.shopcenter.repository.OrderRepository;
-import com.sadad.co.ir.api.shopcenter.repository.ProductRepository;
 import com.sadad.co.ir.api.shopcenter.service.OrderService;
-import com.sadad.co.ir.api.shopcenter.service.OrderServiceImp;
-import com.sadad.co.ir.api.shopcenter.service.PayService;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/orders/")
@@ -34,20 +26,21 @@ public class OrderController {
     }
 
     @PostMapping("")
-        public OrderEntity insertOrder(@RequestBody CreateOrderDto orderDto){
+    public OrderEntity insertOrder(@RequestBody CreateOrderDto orderDto) {
 
         return orderService.insertOrder(orderDto);
     }
 
     @PutMapping("/{id}")
-    public OrderEntity updateOrder(@PathVariable ("id")int id ,@RequestBody CreateOrderDto orderDto){
-        return  orderService.updateOrder(id,orderDto);
+    public OrderEntity updateOrder(@PathVariable("id") int id, @RequestBody CreateOrderDto orderDto) {
+        return orderService.updateOrder(id, orderDto);
     }
 
     @DeleteMapping("")
-    public void deleteOrder(@RequestParam int id){
-         orderService.deleteOrder(id);
+    public void deleteOrder(@RequestParam int id) {
+        orderService.deleteOrder(id);
     }
+
     @PostMapping("/pay")
     public PayDtoResp pay(@RequestBody PayReqDto reqDto) {
 

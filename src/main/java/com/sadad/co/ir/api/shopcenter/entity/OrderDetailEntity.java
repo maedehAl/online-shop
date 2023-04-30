@@ -15,7 +15,7 @@ public class OrderDetailEntity {
     private int id;
 
     @ManyToOne()
-    @JoinColumn(name = "product_fk",referencedColumnName = "id")
+    @JoinColumn(name = "product_fk", referencedColumnName = "id")
     private ProductEntity product;
 
     @Column(name = "COUNT")

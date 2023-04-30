@@ -7,10 +7,12 @@ import java.util.List;
 
 public interface CustomerService {
     CustomerEntity getCustomer(Integer id);
+
     List<CustomerEntity> getAllCustomer();
 
     CustomerEntity insertCustomer(CustomerDto customerDto);
 
     CustomerEntity updateCustomer(Integer id, CustomerDto customerDto);
+
     void deleteCustomer(Integer id);
 }

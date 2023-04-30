@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @Entity
@@ -16,7 +14,7 @@ public class OrderEntity {
     private int id;
 
     @ManyToOne()
-    @JoinColumn(name = "customer_fk",referencedColumnName = "id")
+    @JoinColumn(name = "customer_fk", referencedColumnName = "id")
     private CustomerEntity customer;
 
     @Column(name = "TOTAL_AMOUNT")

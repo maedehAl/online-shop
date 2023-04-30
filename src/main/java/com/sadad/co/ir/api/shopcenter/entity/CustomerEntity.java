@@ -14,7 +14,7 @@ public class CustomerEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "FIRST_NAME",length = 100)
+    @Column(name = "FIRST_NAME", length = 100)
     @NotBlank(message = "please enter your firstname")
     private String name;
 

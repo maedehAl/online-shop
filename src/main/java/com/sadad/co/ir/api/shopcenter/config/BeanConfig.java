@@ -1,11 +1,6 @@
 package com.sadad.co.ir.api.shopcenter.config;
 
-import com.sadad.co.ir.api.shopcenter.dto.PayType;
-import com.sadad.co.ir.api.shopcenter.repository.ProductRepository;
-import com.sadad.co.ir.api.shopcenter.service.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration

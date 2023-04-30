@@ -3,7 +3,6 @@ package com.sadad.co.ir.api.shopcenter.service;
 import com.sadad.co.ir.api.shopcenter.dto.ProductDto;
 import com.sadad.co.ir.api.shopcenter.entity.ProductEntity;
 import com.sadad.co.ir.api.shopcenter.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,10 +11,11 @@ import java.util.Optional;
 
 
 @Service("product_service")
-public class ProductServiceImp implements ProductService{
+public class ProductServiceImp implements ProductService {
 
     private final ProductRepository productRepository;
     private double price;
+
     public ProductServiceImp(ProductRepository productRepository) {
         this.productRepository = productRepository;
         this.price = price;
@@ -34,7 +34,7 @@ public class ProductServiceImp implements ProductService{
 
     @Override
     public ProductEntity getOne(Integer id) {
-        Optional <ProductEntity> optProduct = productRepository.findById(id);
+        Optional<ProductEntity> optProduct = productRepository.findById(id);
         if (optProduct.isEmpty()) {
             throw new RuntimeException("NotFound Order");
         }
@@ -42,7 +42,7 @@ public class ProductServiceImp implements ProductService{
     }
 
     @Override
-    public ProductEntity create (ProductDto productDto){
+    public ProductEntity create(ProductDto productDto) {
         ProductEntity product = new ProductEntity();
         product.setCount(productDto.getCount());
         product.setDescription(productDto.getDescription());
@@ -52,7 +52,7 @@ public class ProductServiceImp implements ProductService{
     }
 
     @Override
-    public  ProductEntity update (Integer id,ProductDto productDto){
+    public ProductEntity update(Integer id, ProductDto productDto) {
         Optional<ProductEntity> optionalProduct = productRepository.findById(id);
 
         if (optionalProduct.isEmpty()) {
@@ -67,7 +67,8 @@ public class ProductServiceImp implements ProductService{
 
         return productRepository.save(product);
     }
-    public void delete(Integer id){
+
+    public void delete(Integer id) {
         productRepository.deleteById(id);
     }
 }
