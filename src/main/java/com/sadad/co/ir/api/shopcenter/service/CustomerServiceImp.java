@@ -14,11 +14,12 @@ import java.util.Optional;
 @Service
 public class CustomerServiceImp implements CustomerService
 {
-    @Autowired
-    private CustomerRepository customerRepository;
+    public CustomerServiceImp(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
 
-    @Autowired
-    private OrderDetailRepository orderDetailRepository;
+    private final CustomerRepository customerRepository;
+
     @Override
     public CustomerEntity getCustomer(Integer id) {
         return customerRepository.findById(id).orElseThrow(()->new RuntimeException("NotFound Customer"));

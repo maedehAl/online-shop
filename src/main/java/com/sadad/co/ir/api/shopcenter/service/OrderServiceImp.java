@@ -18,31 +18,24 @@ import java.util.Optional;
 
 @Service
 public class OrderServiceImp implements OrderService {
-//    public OrderServiceImp(OrderRepository orderRepository, CustomerRepository customerRepository, PayService payServiceWithCash) {
-//        this.orderRepository = orderRepository;
-//        this.customerRepository = customerRepository;
-//        this.payServiceWithCash = payServiceWithCash;
-//    }
+    public OrderServiceImp(OrderRepository orderRepository, OrderDetailRepository orderDetailRepository, CustomerRepository customerRepository, ProductRepository productRepository) {
+        this.orderRepository = orderRepository;
+        this.orderDetailRepository = orderDetailRepository;
+        this.customerRepository = customerRepository;
+        this.productRepository = productRepository;
+    }
 
-    @Autowired
-     private OrderRepository orderRepository;
-
-    @Autowired
-    private OrderDetailRepository orderDetailRepository;
-
-    @Autowired
-    private CustomerRepository customerRepository;
-
-    @Autowired
-    private ProductRepository productRepository;
-
+    private final OrderRepository orderRepository;
+    private final OrderDetailRepository orderDetailRepository;
+    private final CustomerRepository customerRepository;
+    private final ProductRepository productRepository;
     @Autowired
     @Qualifier("PayWithCash")
     private PayService payServiceWithCash;
 
     @Autowired
     @Qualifier("PayWithIPG")
-    private PayService payServiceWithIPG;
+    private  PayService payServiceWithIPG;
 
 
 
