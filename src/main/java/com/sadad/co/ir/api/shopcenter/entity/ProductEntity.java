@@ -8,13 +8,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "PRODUCT")
-public class ProductEntity {
-
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id") //optional
-    private int id;
+public class ProductEntity extends BaseEntity{
 
     @Column(name = "PRODUCT_NAME", length = 100, nullable = false)
     private String name;

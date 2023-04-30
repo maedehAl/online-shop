@@ -9,10 +9,8 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "CUSTOMER")
-public class CustomerEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class CustomerEntity extends BaseEntity{
+
 
     @Column(name = "FIRST_NAME", length = 100)
     @NotBlank(message = "please enter your firstname")
@@ -29,12 +27,6 @@ public class CustomerEntity {
 
     @Column(name = "EMAIL")
     private String email;
-
-    @Column(name = "DELETED")
-    private Boolean deleted;
-
-    @Column(name = "DELETED_BY")
-    private String deletedBy;
 
 //    @OneToMany
 //    @Column(name = "ORDER_ID")

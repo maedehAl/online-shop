@@ -8,11 +8,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "ORDER_DETAIL")
-public class OrderDetailEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class OrderDetailEntity extends BaseEntity{
 
     @ManyToOne()
     @JoinColumn(name = "product_fk", referencedColumnName = "id")
