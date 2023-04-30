@@ -21,11 +21,7 @@ public class CustomerServiceImp implements CustomerService
     private OrderDetailRepository orderDetailRepository;
     @Override
     public CustomerEntity getCustomer(Integer id) {
-        Optional<CustomerEntity> optCustomer = customerRepository.findById(id);
-        if (optCustomer.isEmpty()) {
-            throw new RuntimeException("NotFound Order");
-        }
-        return optCustomer.get();
+        return customerRepository.findById(id).orElseThrow(()->new RuntimeException("NotFound Customer"));
     }
 
     @Override
@@ -46,8 +42,7 @@ public class CustomerServiceImp implements CustomerService
 
     @Override
     public CustomerEntity updateCustomer(Integer id, CustomerDto customerDto) {
-        Optional<CustomerEntity> optCustomer = customerRepository.findById(id);
-        CustomerEntity customerEntity=optCustomer.get();
+        CustomerEntity customerEntity = customerRepository.findById(id).orElseThrow(()->new RuntimeException("Customer Not Found"));
         customerEntity.setName(customerDto.getName());
         customerEntity.setLastName(customerDto.getLastName());
         customerEntity.setAddress(customerDto.getAddress());

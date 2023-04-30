@@ -51,12 +51,7 @@ public class OrderServiceImp implements OrderService {
     @Override
     public OrderDto getOrder(int id) {
 
-        Optional<OrderEntity> optOrder = orderRepository.findById(id);
-        if (optOrder.isEmpty()) {
-            throw new RuntimeException("NotFound Order");
-        }
-
-        OrderEntity orderEntity = optOrder.get();
+        OrderEntity orderEntity = orderRepository.findById(id).orElseThrow(()->new RuntimeException("Order Not Found"));
 
         Optional<CustomerEntity> OptCustomer = customerRepository.findById(orderEntity.getCustomer().getId());
         CustomerEntity customerEntity = OptCustomer.get();
@@ -131,8 +126,7 @@ public class OrderServiceImp implements OrderService {
     }
     @Override
     public OrderEntity updateOrder(int id, CreateOrderDto orderDto) {
-        Optional<OrderEntity> optOrder = orderRepository.findById(id);
-        OrderEntity orderEntity = optOrder.get();
+        OrderEntity orderEntity = orderRepository.findById(id).orElseThrow(()->new RuntimeException("Order Not Found"));
 
         Optional<CustomerEntity> optCustomerEntity = customerRepository.findById(orderDto.getCustomerId());
         orderEntity.setCustomer(optCustomerEntity.get());
@@ -152,7 +146,6 @@ public class OrderServiceImp implements OrderService {
     @Override
     public void deleteOrder(int id) {
         orderRepository.deleteById(id);
-//        return "delete";
     }
 
     public PayDtoResp settlement(PayReqDto reqDto) {
