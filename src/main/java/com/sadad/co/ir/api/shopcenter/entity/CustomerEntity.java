@@ -30,6 +30,12 @@ public class CustomerEntity {
     @Column(name = "EMAIL")
     private String email;
 
+    @Column(name = "DELETED")
+    private Boolean deleted;
+
+    @Column(name = "DELETED_BY")
+    private String deletedBy;
+
 //    @OneToMany
 //    @Column(name = "ORDER_ID")
 //    private int orderId;
