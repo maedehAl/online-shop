@@ -4,7 +4,6 @@ import com.sadad.co.ir.api.shopcenter.dto.ProductDto;
 import com.sadad.co.ir.api.shopcenter.entity.ProductEntity;
 import com.sadad.co.ir.api.shopcenter.repository.ProductRepository;
 import com.sadad.co.ir.api.shopcenter.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,11 +15,12 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
-    @Autowired
-    private ProductRepository productRepository;
+//    @Autowired
+    private final ProductRepository productRepository;
 
-    public ProductController(@Qualifier("product_service") ProductService productService) {
+    public ProductController(@Qualifier("product_service") ProductService productService, ProductRepository productRepository) {
         this.productService = productService;
+        this.productRepository = productRepository;
     }
 
     @GetMapping("/hello")
