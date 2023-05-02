@@ -10,3 +10,6 @@ spring:
       ddl-auto: update
     generate-ddl: true
     show-sql: true
+product:
+  list:
+    count: 2
