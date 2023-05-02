@@ -14,6 +14,6 @@ public interface ProductService {
     ProductEntity create(ProductDto productDto);
 
     ProductEntity update(Integer id, ProductDto productDto);
-
     void delete(Integer id);
+    List<ProductEntity> searchByName(String name);
 }

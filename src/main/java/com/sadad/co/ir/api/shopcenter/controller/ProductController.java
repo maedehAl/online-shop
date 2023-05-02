@@ -15,17 +15,11 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
-//    @Autowired
     private final ProductRepository productRepository;
 
     public ProductController(@Qualifier("product_service") ProductService productService, ProductRepository productRepository) {
         this.productService = productService;
         this.productRepository = productRepository;
-    }
-
-    @GetMapping("/hello")
-    public String hello() {
-        return "hello guys!!!";
     }
 
     @GetMapping("/{id}")
@@ -54,5 +48,9 @@ public class ProductController {
     public void delete(@PathVariable("id") Integer id) {
 
         productService.delete(id);
+    }
+    @GetMapping("/{name}")
+    public List<ProductEntity> searchByName(@PathVariable("name")String name){
+        return productService.searchByName(name);
     }
 }

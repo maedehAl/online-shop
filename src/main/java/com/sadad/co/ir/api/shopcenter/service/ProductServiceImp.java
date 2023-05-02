@@ -71,4 +71,9 @@ public class ProductServiceImp implements ProductService {
     public void delete(Integer id) {
         productRepository.deleteById(id);
     }
+
+    @Override
+    public List<ProductEntity> searchByName(String name) {
+        return null;
+    }
 }
