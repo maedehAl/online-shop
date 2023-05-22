@@ -2,6 +2,7 @@ package com.sadad.co.ir.api.shopcenter.service;
 
 import com.sadad.co.ir.api.shopcenter.dto.*;
 import com.sadad.co.ir.api.shopcenter.entity.*;
+import com.sadad.co.ir.api.shopcenter.integrations.WalletProvider;
 import com.sadad.co.ir.api.shopcenter.repository.CustomerRepository;
 import com.sadad.co.ir.api.shopcenter.repository.OrderDetailRepository;
 import com.sadad.co.ir.api.shopcenter.repository.OrderRepository;
@@ -159,12 +160,14 @@ public class OrderServiceImp implements OrderService {
         orderRepository.save(orderEntity);
         PayDtoResp pay = null;
         switch (reqDto.getPayType()) {
-            case CASH:
+            case CASH: //Enum in db
                 pay = payServiceWithCash.pay(reqDto.getOrderId(), reqDto.getOrderId(), reqDto.getAmount());
                 break;
             case IPG:
                 pay = payServiceWithIPG.pay(reqDto.getOrderId(), reqDto.getOrderId(), reqDto.getAmount());
                 break;
+//            case WALLET:
+//                pay = WalletProvider.
             default:
                 throw new RuntimeException("Not Implemented");
         }

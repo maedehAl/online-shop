@@ -13,3 +13,6 @@ spring:
 product:
   list:
     count: 2
+
+wallet:
+    balance-url: http://localhost:8081/wallet/balance

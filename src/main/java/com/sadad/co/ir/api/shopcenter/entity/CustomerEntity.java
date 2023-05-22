@@ -28,6 +28,9 @@ public class CustomerEntity extends BaseEntity{
     @Column(name = "EMAIL")
     private String email;
 
+    @Column(name = "SNN")
+    private String snn;
+
 //    @OneToMany
 //    @Column(name = "ORDER_ID")
 //    private int orderId;
