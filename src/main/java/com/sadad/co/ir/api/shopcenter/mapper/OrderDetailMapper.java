@@ -1,4 +1,4 @@
 package com.sadad.co.ir.api.shopcenter.mapper;
 
-public interface custommerMapper {
+public class OrderDetailMapper {
 }

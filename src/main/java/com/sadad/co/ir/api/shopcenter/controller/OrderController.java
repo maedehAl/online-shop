@@ -8,16 +8,18 @@ import com.sadad.co.ir.api.shopcenter.entity.OrderEntity;
 import com.sadad.co.ir.api.shopcenter.repository.OrderDetailRepository;
 import com.sadad.co.ir.api.shopcenter.repository.OrderRepository;
 import com.sadad.co.ir.api.shopcenter.service.OrderService;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/orders/")
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class OrderController {
+    public OrderController(@NonNull OrderRepository orderRepository, OrderDetailRepository orderDetailRepository, OrderService orderService) {
+        this.orderService = orderService;
+    }
 
-    private final OrderRepository orderRepository;
-    private final OrderDetailRepository orderDetailRepository;
     private final OrderService orderService;
 
     @GetMapping("/{id}")

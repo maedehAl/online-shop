@@ -35,6 +35,7 @@ public class WalletProviderImp implements WalletProvider {
         OrderEntity orderEntity = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order Not Found"));
 
         WalletDto balance = getBalance(orderEntity.getCustomer().getSnn());
+
         if (balance.getBalances()>orderEntity.getTotalAmount()){
             return null;
         }
