@@ -34,11 +34,7 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public ProductEntity getOne(Integer id) {
-        Optional<ProductEntity> optProduct = productRepository.findById(id);
-        if (optProduct.isEmpty()) {
-            throw new RuntimeException("NotFound Order");
-        }
-        return optProduct.get();
+        return productRepository.findById(id).orElseThrow(()->new RuntimeException("not Found"));
     }
 
     @Override
@@ -53,13 +49,7 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public ProductEntity update(Integer id, ProductDto productDto) {
-        Optional<ProductEntity> optionalProduct = productRepository.findById(id);
-
-        if (optionalProduct.isEmpty()) {
-            throw new RuntimeException();
-        }
-
-        ProductEntity product = optionalProduct.get();
+       ProductEntity product= productRepository.findById(id).orElseThrow(() -> new RuntimeException("not found"));
         product.setCount(productDto.getCount());
         product.setDescription(productDto.getDescription());
         product.setName(productDto.getName());

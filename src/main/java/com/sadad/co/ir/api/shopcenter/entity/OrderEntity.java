@@ -16,7 +16,7 @@ public class OrderEntity extends BaseEntity{
     private CustomerEntity customer;
 
     @Column(name = "TOTAL_AMOUNT")
-    private long totalAmount;
+    private double totalAmount;
 //    محاسبه بشه
 
     @Column(name = "ORDER_STATUS")

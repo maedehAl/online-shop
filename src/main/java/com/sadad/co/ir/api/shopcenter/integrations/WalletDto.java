@@ -9,5 +9,5 @@ public class WalletDto implements Serializable {
 
 //    private String walletId;
     private String snn;
-    private double balance;
+    private double balances;
 }

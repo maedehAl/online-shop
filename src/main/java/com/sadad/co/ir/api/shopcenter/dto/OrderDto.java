@@ -16,6 +16,6 @@ public class OrderDto implements Serializable {
 
     private List<OrderDetailDto> orderDetails;
 
-    private long totalAmount;
+    private double totalAmount;
 
 }

@@ -1,2 +1,4 @@
-package com.sadad.co.ir.api.shopcenter.mapper;public interface custommerMapper {
+package com.sadad.co.ir.api.shopcenter.mapper;
+
+public interface custommerMapper {
 }
