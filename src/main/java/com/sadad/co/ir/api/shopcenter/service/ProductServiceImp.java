@@ -2,7 +2,9 @@ package com.sadad.co.ir.api.shopcenter.service;
 
 import com.sadad.co.ir.api.shopcenter.dto.ProductDto;
 import com.sadad.co.ir.api.shopcenter.entity.ProductEntity;
+import com.sadad.co.ir.api.shopcenter.mapper.ProductMapper;
 import com.sadad.co.ir.api.shopcenter.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,15 +13,14 @@ import java.util.Optional;
 
 
 @Service("product_service")
+@RequiredArgsConstructor
 public class ProductServiceImp implements ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
     private double price;
 
-    public ProductServiceImp(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-        this.price = price;
-    }
+
 
     @Override
     public List<ProductEntity> getAll(Integer id) {
@@ -34,32 +35,18 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public ProductEntity getOne(Integer id) {
-        Optional<ProductEntity> optProduct = productRepository.findById(id);
-        if (optProduct.isEmpty()) {
-            throw new RuntimeException("NotFound Order");
-        }
-        return optProduct.get();
+        return productRepository.findById(id).orElseThrow(()->new RuntimeException("not found"));
     }
 
     @Override
     public ProductEntity create(ProductDto productDto) {
-        ProductEntity product = new ProductEntity();
-        product.setCount(productDto.getCount());
-        product.setDescription(productDto.getDescription());
-        product.setName(productDto.getName());
-        product.setPrice(productDto.getPrice());
-        return productRepository.save(product);
+    ProductEntity productEntity = productMapper.toEntity(productDto);
+        return productRepository.save(productEntity);
     }
 
     @Override
     public ProductEntity update(Integer id, ProductDto productDto) {
-        Optional<ProductEntity> optionalProduct = productRepository.findById(id);
-
-        if (optionalProduct.isEmpty()) {
-            throw new RuntimeException();
-        }
-
-        ProductEntity product = optionalProduct.get();
+       ProductEntity product= productRepository.findById(id).orElseThrow(() -> new RuntimeException("not found"));
         product.setCount(productDto.getCount());
         product.setDescription(productDto.getDescription());
         product.setName(productDto.getName());
@@ -67,7 +54,7 @@ public class ProductServiceImp implements ProductService {
 
         return productRepository.save(product);
     }
-
+    @Override
     public void delete(Integer id) {
         productRepository.deleteById(id);
     }

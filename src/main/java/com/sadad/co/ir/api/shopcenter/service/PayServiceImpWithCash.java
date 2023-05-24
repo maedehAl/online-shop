@@ -16,4 +16,9 @@ public class PayServiceImpWithCash implements PayService {
         payDtoResp.setAmount(amount);
         return payDtoResp;
     }
+
+    @Override
+    public PayDtoResp pay(int orderId) {
+        return null;
+    }
 }

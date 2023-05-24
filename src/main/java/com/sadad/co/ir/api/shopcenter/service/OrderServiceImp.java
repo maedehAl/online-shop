@@ -3,10 +3,12 @@ package com.sadad.co.ir.api.shopcenter.service;
 import com.sadad.co.ir.api.shopcenter.dto.*;
 import com.sadad.co.ir.api.shopcenter.entity.*;
 import com.sadad.co.ir.api.shopcenter.integrations.WalletProvider;
+import com.sadad.co.ir.api.shopcenter.mapper.OrderMapper;
 import com.sadad.co.ir.api.shopcenter.repository.CustomerRepository;
 import com.sadad.co.ir.api.shopcenter.repository.OrderDetailRepository;
 import com.sadad.co.ir.api.shopcenter.repository.OrderRepository;
 import com.sadad.co.ir.api.shopcenter.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -18,11 +20,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class OrderServiceImp implements OrderService {
     private final OrderRepository orderRepository;
     private final OrderDetailRepository orderDetailRepository;
     private final CustomerRepository customerRepository;
     private final ProductRepository productRepository;
+    private final OrderMapper orderMapper;
     @Autowired
     @Qualifier("PayWithCash")
     private PayService payServiceWithCash;
@@ -30,12 +34,12 @@ public class OrderServiceImp implements OrderService {
     @Qualifier("PayWithIPG")
     private PayService payServiceWithIPG;
 
-    public OrderServiceImp(OrderRepository orderRepository, OrderDetailRepository orderDetailRepository, CustomerRepository customerRepository, ProductRepository productRepository) {
-        this.orderRepository = orderRepository;
-        this.orderDetailRepository = orderDetailRepository;
-        this.customerRepository = customerRepository;
-        this.productRepository = productRepository;
-    }
+//    public OrderServiceImp(OrderRepository orderRepository, OrderDetailRepository orderDetailRepository, CustomerRepository customerRepository, ProductRepository productRepository) {
+//        this.orderRepository = orderRepository;
+//        this.orderDetailRepository = orderDetailRepository;
+//        this.customerRepository = customerRepository;
+//        this.productRepository = productRepository;
+//    }
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
 
@@ -44,12 +48,12 @@ public class OrderServiceImp implements OrderService {
 
         OrderEntity orderEntity = orderRepository.findById(id).orElseThrow(() -> new RuntimeException("Order Not Found"));
 
-        Optional<CustomerEntity> OptCustomer = customerRepository.findById(orderEntity.getCustomer().getId());
-        CustomerEntity customerEntity = OptCustomer.get();
+        CustomerEntity customerEntity = customerRepository.findById(orderEntity.getCustomer().getId()).orElseThrow(() -> new RuntimeException(" Not Found"));;
 
         OrderDto responseDto = new OrderDto();
-        responseDto.setId(orderEntity.getId());
-        responseDto.setTotalAmount(orderEntity.getTotalAmount());
+        OrderDto orderDto = orderMapper.toDto(orderEntity);
+//        responseDto.setId(orderEntity.getId());
+//        responseDto.setTotalAmount(orderEntity.getTotalAmount());
         responseDto.setOrderDetails(new ArrayList<>());
         responseDto.setCustomer(new CustomerDto());
 
@@ -142,13 +146,7 @@ public class OrderServiceImp implements OrderService {
 
     public PayDtoResp settlement(PayReqDto reqDto) {
         //get order
-        Optional<OrderEntity> optOrderEntity = orderRepository.findById(reqDto.getOrderId());
-
-        if (optOrderEntity.isEmpty()) {
-            throw new RuntimeException("order not found!!!");
-        }
-
-        OrderEntity orderEntity = optOrderEntity.get();
+        OrderEntity orderEntity = orderRepository.findById(reqDto.getOrderId()).orElseThrow(()->new RuntimeException("not found"));
 
         if (reqDto.getAmount() != orderEntity.getTotalAmount()) {
             throw new RuntimeException("order amount with pay amount is not equals");

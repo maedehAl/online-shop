@@ -12,11 +12,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/customers")
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class CustomerController {
     private final CustomerService customerService;
-    private final CustomerRepository customerRepository;
 
+    public CustomerController(CustomerService customerService, CustomerRepository customerRepository) {
+        this.customerService = customerService;
+    }
 
     @GetMapping("/{id}")
     public CustomerEntity getCustomer(@PathVariable("id") Integer id) {
