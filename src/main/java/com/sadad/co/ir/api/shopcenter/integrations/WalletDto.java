@@ -8,6 +8,6 @@ import java.io.Serializable;
 public class WalletDto implements Serializable {
 
 //    private String walletId;
-    private String snn;
+//    private String snn;
     private double balances;
 }

@@ -1,8 +1,5 @@
 package com.sadad.co.ir.api.shopcenter.integrations;
 
-import com.sadad.co.ir.api.shopcenter.dto.PayWalletDtoResp;
-import com.sadad.co.ir.api.shopcenter.entity.OrderEntity;
-import com.sadad.co.ir.api.shopcenter.entity.OrderStatus;
 import com.sadad.co.ir.api.shopcenter.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,21 +27,21 @@ public class WalletProviderImp implements WalletProvider {
                 .block();
     }
 
-    @Override
-    public PayWalletDtoResp payWithWallet(Integer orderId) {
-        OrderEntity orderEntity = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order Not Found"));
-
-        WalletDto balance = getBalance(orderEntity.getCustomer().getSnn());
-
-        if (balance.getBalances()>orderEntity.getTotalAmount()){
-            return null;
-        }
-        PayWalletDtoResp payWalletDtoResp = new PayWalletDtoResp();
-        payWalletDtoResp.setStatus(OrderStatus.PAID);
-        payWalletDtoResp.setRemainAmount(balance.getBalances());
-//        orderEntity.getTotalAmount();
-        return payWalletDtoResp;
-    }
+//    @Override
+//    public PayWalletDtoResp payWithWallet(Integer orderId) {
+////        OrderEntity orderEntity = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order Not Found"));
+////
+////        WalletDto balance = getBalance(orderEntity.getCustomer().getSnn());
+////
+////        if (balance.getBalances()>orderEntity.getTotalAmount()){
+////            return null;
+////        }
+////        PayWalletDtoResp payWalletDtoResp = new PayWalletDtoResp();
+////        payWalletDtoResp.setStatus(OrderStatus.PAID);
+////        payWalletDtoResp.setRemainAmount(balance.getBalances());
+//////        orderEntity.getTotalAmount();
+//        return payWalletDtoResp;
+//    }
 
 
 }
