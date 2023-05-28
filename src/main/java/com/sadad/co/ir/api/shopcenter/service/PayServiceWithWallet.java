@@ -24,14 +24,14 @@ public class PayServiceWithWallet implements PayService {
         String ssn =orderEntity.getCustomer().getSnn();
         WalletDto balance = walletProvider.getBalance(ssn);
         if (balance.getBalance()<orderEntity.getTotalAmount()){
-           throw new RuntimeException("Order Not Found");
+           throw new RuntimeException("balance not enough");
         }
         else {
 //            transaction
-            WalletDto remainAmount = walletProvider.withdrawal(ssn, orderEntity.getTotalAmount());
+            long remainAmount = walletProvider.withdrawal(ssn, orderEntity.getTotalAmount()).getBalance();
             PayDtoResp payDtoResp = new PayDtoResp();
 //            payDtoResp.setStatus(OrderStatus.PAID);
-            payDtoResp.setRemainAmount(remainAmount.getBalance());
+            payDtoResp.setRemainAmount(remainAmount);
             payDtoResp.setSucceed(true);
             payDtoResp.setMessage("transaction succeed");
             payDtoResp.setReferenceId(null);
