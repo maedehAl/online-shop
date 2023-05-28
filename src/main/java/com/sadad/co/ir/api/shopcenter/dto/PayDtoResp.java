@@ -15,4 +15,5 @@ public class PayDtoResp {
     private boolean succeed;
     private String referenceId;
     private long remainAmount;
+
 }

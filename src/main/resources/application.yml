@@ -16,3 +16,4 @@ product:
 
 wallet:
     balance-url: http://localhost:8081/wallet/balance
+    Withdrawal-url: http://localhost:8081/wallet/withdrawal
