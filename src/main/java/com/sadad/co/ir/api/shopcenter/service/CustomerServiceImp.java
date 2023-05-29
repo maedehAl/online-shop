@@ -6,6 +6,7 @@ import com.sadad.co.ir.api.shopcenter.entity.CustomerEntity;
 import com.sadad.co.ir.api.shopcenter.mapper.CustomerMapper;
 import com.sadad.co.ir.api.shopcenter.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class CustomerServiceImp implements CustomerService {
     private final CustomerMapper customerMapper;
     @Override
     public CustomerEntity getCustomer(Integer id) {
-        return customerRepository.findById(id).orElseThrow(() -> new RuntimeException("NotFound Customer"));
+        return customerRepository.findById(id).orElseThrow(() -> new BaseException("NotFound Customer", HttpStatus.FORBIDDEN));
     }
 
     @Override
