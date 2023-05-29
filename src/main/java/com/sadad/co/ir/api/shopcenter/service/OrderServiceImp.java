@@ -1,5 +1,6 @@
 package com.sadad.co.ir.api.shopcenter.service;
 
+import com.sadad.co.ir.api.shopcenter.Exceptions.BaseException;
 import com.sadad.co.ir.api.shopcenter.dto.*;
 import com.sadad.co.ir.api.shopcenter.entity.*;
 import com.sadad.co.ir.api.shopcenter.integrations.WalletProvider;
@@ -122,7 +123,7 @@ public class OrderServiceImp implements OrderService {
 
     @Override
     public OrderEntity updateOrder(int id, CreateOrderDto orderDto) {
-        OrderEntity orderEntity = orderRepository.findById(id).orElseThrow(() -> new RuntimeException("Order Not Found"));
+        OrderEntity orderEntity = orderRepository.findById(id).orElseThrow(() -> new BaseException("Order Not Found"));
 
         Optional<CustomerEntity> optCustomerEntity = customerRepository.findById(orderDto.getCustomerId());
         orderEntity.setCustomer(optCustomerEntity.get());
@@ -146,7 +147,7 @@ public class OrderServiceImp implements OrderService {
 
     public PayDtoResp settlement(PayReqDto reqDto) {
         //get order
-        OrderEntity orderEntity = orderRepository.findById(reqDto.getOrderId()).orElseThrow(()->new RuntimeException("not found"));
+        OrderEntity orderEntity = orderRepository.findById(reqDto.getOrderId()).orElseThrow(()->new BaseException("not found"));
 
         if (reqDto.getAmount() != orderEntity.getTotalAmount()) {
             throw new RuntimeException("order amount with pay amount is not equals");
@@ -167,7 +168,7 @@ public class OrderServiceImp implements OrderService {
 //            case WALLET:
 //                pay = WalletProvider.
             default:
-                throw new RuntimeException("Not Implemented");
+                throw new BaseException("Not Implemented");
         }
 
         if (pay.isSucceed()) {

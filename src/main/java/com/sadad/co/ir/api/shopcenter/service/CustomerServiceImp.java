@@ -1,5 +1,6 @@
 package com.sadad.co.ir.api.shopcenter.service;
 
+import com.sadad.co.ir.api.shopcenter.Exceptions.BaseException;
 import com.sadad.co.ir.api.shopcenter.dto.CustomerDto;
 import com.sadad.co.ir.api.shopcenter.entity.CustomerEntity;
 import com.sadad.co.ir.api.shopcenter.mapper.CustomerMapper;
@@ -39,7 +40,7 @@ public class CustomerServiceImp implements CustomerService {
 
     @Override
     public CustomerEntity updateCustomer(Integer id, CustomerDto customerDto) {
-        CustomerEntity customerEntity = customerRepository.findById(id).orElseThrow(() -> new RuntimeException("Customer Not Found"));
+        CustomerEntity customerEntity = customerRepository.findById(id).orElseThrow(() -> new BaseException("Customer Not Found"));
         customerEntity.setName(customerDto.getName());
         customerEntity.setLastName(customerDto.getLastName());
         customerEntity.setAddress(customerDto.getAddress());

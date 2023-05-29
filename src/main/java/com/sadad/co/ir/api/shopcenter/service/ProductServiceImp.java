@@ -1,5 +1,6 @@
 package com.sadad.co.ir.api.shopcenter.service;
 
+import com.sadad.co.ir.api.shopcenter.Exceptions.BaseException;
 import com.sadad.co.ir.api.shopcenter.dto.ProductDto;
 import com.sadad.co.ir.api.shopcenter.entity.ProductEntity;
 import com.sadad.co.ir.api.shopcenter.mapper.ProductMapper;
@@ -35,7 +36,7 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public ProductEntity getOne(Integer id) {
-        return productRepository.findById(id).orElseThrow(()->new RuntimeException("not found"));
+        return productRepository.findById(id).orElseThrow(()->new BaseException("not found"));
     }
 
     @Override
@@ -46,7 +47,7 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public ProductEntity update(Integer id, ProductDto productDto) {
-       ProductEntity product= productRepository.findById(id).orElseThrow(() -> new RuntimeException("not found"));
+       ProductEntity product= productRepository.findById(id).orElseThrow(() -> new BaseException("not found"));
         product.setCount(productDto.getCount());
         product.setDescription(productDto.getDescription());
         product.setName(productDto.getName());
