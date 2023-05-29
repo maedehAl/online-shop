@@ -24,4 +24,8 @@ public class BaseEntity {
     @Column(name = "CREATION_TIMESTAMP")
     @CreationTimestamp
     private Timestamp creationTimestamp;
+
+    @Version
+    @Column(name = "VERSION")
+    private Integer version;
 }
