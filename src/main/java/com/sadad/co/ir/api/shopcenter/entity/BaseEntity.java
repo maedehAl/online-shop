@@ -26,6 +26,6 @@ public class BaseEntity {
     private Timestamp creationTimestamp;
 
     @Version
-    @Column(name = "VERSION")
+    @Column(name = "VERSION",nullable = false ,columnDefinition = "int default 1")
     private Integer version;
 }
