@@ -11,7 +11,7 @@ public interface OrderMapper {
     OrderDto toDto (OrderEntity orderEntity);
     @Mapping(target = "customer",source = "customer")
     @Mapping(target = "totalAmount",source = "totalAmount")
-    @M
+    @Mapping()
     OrderEntity toEntity (OrderDto orderDto);
 
 }
